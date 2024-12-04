@@ -52,18 +52,20 @@ jobs:
       uses: pjbgf-forks/ecm-distro-tools/actions/publish-image@publish
       env: 
         META_LABELS: ${{ steps.meta-amd64.outputs.labels }}
+        PRIME_REGISTRY: ${{ env.PRIME_REGISTRY }}
+        PUBLIC_REGISTRY: ${{ env.PUBLIC_REGISTRY }}
       with:
         image: hardened-calico
         tag: ${{ github.event.release.tag_name }}
         platforms: linux/amd64
 
         public-repo: paulinhu
-        public-registry: docker.io # ${{ env.PUBLIC_REGISTRY }}
+        public-registry: ${{ env.PUBLIC_REGISTRY }}
         public-username: ${{ env.DOCKER_USERNAME }}
         public-password: ${{ env.DOCKER_PASSWORD }}
 
         prime-repo: pjbgf-forks
-        prime-registry: ghcr.io # ${{ env.PRIME_REGISTRY }}
+        prime-registry: ${{ env.PRIME_REGISTRY }}
         prime-username: ${{ env.PRIME_REGISTRY_USERNAME }}
         prime-password: ${{ env.PRIME_REGISTRY_PASSWORD }}
 
