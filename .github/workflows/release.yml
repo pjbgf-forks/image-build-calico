@@ -30,19 +30,26 @@ jobs:
       with:
         images: ${{ env.REGISTRY_IMAGE }}
 
+    # - name: "Read secrets"
+    #   uses: rancher-eio/read-vault-secrets@main
+    #   with:
+    #     secrets: |
+    #       secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials username | DOCKER_USERNAME ;
+    #       secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials password | DOCKER_PASSWORD ;
+    #       secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials registry | PRIME_REGISTRY ;
+    #       secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials username | PRIME_REGISTRY_USERNAME ;
+    #       secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials password | PRIME_REGISTRY_PASSWORD
+
     - name: "Read secrets"
-      uses: rancher-eio/read-vault-secrets@main
-      with:
-        secrets: |
-          secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials username | DOCKER_USERNAME ;
-          secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials password | DOCKER_PASSWORD ;
-          secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials registry | PRIME_REGISTRY ;
-          secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials username | PRIME_REGISTRY_USERNAME ;
-          secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials password | PRIME_REGISTRY_PASSWORD
+      run: |
+        echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> $GITHUB_ENV
+        echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> $GITHUB_ENV        
+        echo "PRIME_REGISTRY_USERNAME=${{ secrets.PRIME_REGISTRY_USERNAME }}" >> $GITHUB_ENV
+        echo "PRIME_REGISTRY_PASSWORD=${{ secrets.PRIME_REGISTRY_PASSWORD }}" >> $GITHUB_ENV
 
     - name: Build and push container image
       id: build-amd64
-      uses: rancher/ecm-distro-tools/actions/publish-image@master
+      uses: pjbgf-forks/ecm-distro-tools/actions/publish-image@publish
       env: 
         META_LABELS: ${{ steps.meta-amd64.outputs.labels }}
       with:
@@ -50,11 +57,11 @@ jobs:
         tag: ${{ github.event.release.tag_name }}
         platforms: linux/amd64
 
-        public-repo: rancher
+        public-repo: paulinhu
         public-username: ${{ env.DOCKER_USERNAME }}
         public-password: ${{ env.DOCKER_PASSWORD }}
 
-        prime-repo: rancher
+        prime-repo: pjbgf-forks
         prime-registry: ${{ env.PRIME_REGISTRY }}
         prime-username: ${{ env.PRIME_REGISTRY_USERNAME }}
         prime-password: ${{ env.PRIME_REGISTRY_PASSWORD }}
@@ -88,19 +95,26 @@ jobs:
       with:
         images: ${{ env.REGISTRY_IMAGE }}
 
+    # - name: "Read secrets"
+    #   uses: rancher-eio/read-vault-secrets@main
+    #   with:
+    #     secrets: |
+    #       secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials username | DOCKER_USERNAME ;
+    #       secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials password | DOCKER_PASSWORD ;
+    #       secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials registry | PRIME_REGISTRY ;
+    #       secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials username | PRIME_REGISTRY_USERNAME ;
+    #       secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials password | PRIME_REGISTRY_PASSWORD
+
     - name: "Read secrets"
-      uses: rancher-eio/read-vault-secrets@main
-      with:
-        secrets: |
-          secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials username | DOCKER_USERNAME ;
-          secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials password | DOCKER_PASSWORD ;
-          secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials registry | PRIME_REGISTRY ;
-          secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials username | PRIME_REGISTRY_USERNAME ;
-          secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials password | PRIME_REGISTRY_PASSWORD
+      run: |
+        echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> $GITHUB_ENV
+        echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> $GITHUB_ENV        
+        echo "PRIME_REGISTRY_USERNAME=${{ secrets.PRIME_REGISTRY_USERNAME }}" >> $GITHUB_ENV
+        echo "PRIME_REGISTRY_PASSWORD=${{ secrets.PRIME_REGISTRY_PASSWORD }}" >> $GITHUB_ENV
 
     - name: Build and push container image
       id: build-arm64
-      uses: rancher/ecm-distro-tools/actions/publish-image@master
+      uses: rancher/ecm-distro-tools/actions/publish-image@publish
       env: 
         META_LABELS: ${{ steps.meta-arm64.outputs.labels }}
       with:
@@ -108,11 +122,11 @@ jobs:
         tag: ${{ github.event.release.tag_name }}
         platforms: linux/arm64
 
-        public-repo: rancher
+        public-repo: paulinhu
         public-username: ${{ env.DOCKER_USERNAME }}
         public-password: ${{ env.DOCKER_PASSWORD }}
 
-        prime-repo: rancher
+        prime-repo: pjbgf-forks
         prime-registry: ${{ env.PRIME_REGISTRY }}
         prime-username: ${{ env.PRIME_REGISTRY_USERNAME }}
         prime-password: ${{ env.PRIME_REGISTRY_PASSWORD }}
@@ -140,19 +154,26 @@ jobs:
         with:
           images: ${{ env.REGISTRY_IMAGE }}
       
-      - name: "Read secrets"
-        uses: rancher-eio/read-vault-secrets@main
-        with:
-          secrets: |
-            secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials username | DOCKER_USERNAME ;
-            secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials password | DOCKER_PASSWORD ;
-            secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials registry | PRIME_REGISTRY ;
-            secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials username | PRIME_REGISTRY_USERNAME ;
-            secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials password | PRIME_REGISTRY_PASSWORD
+      # - name: "Read secrets"
+      #   uses: rancher-eio/read-vault-secrets@main
+      #   with:
+      #     secrets: |
+      #       secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials username | DOCKER_USERNAME ;
+      #       secret/data/github/repo/${{ github.repository }}/dockerhub/${{ github.repository_owner }}/credentials password | DOCKER_PASSWORD ;
+      #       secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials registry | PRIME_REGISTRY ;
+      #       secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials username | PRIME_REGISTRY_USERNAME ;
+      #       secret/data/github/repo/${{ github.repository }}/rancher-prime-registry/credentials password | PRIME_REGISTRY_PASSWORD
 
+      - name: "Read secrets"
+        run: |
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> $GITHUB_ENV
+          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> $GITHUB_ENV          
+          echo "PRIME_REGISTRY_USERNAME=${{ secrets.PRIME_REGISTRY_USERNAME }}" >> $GITHUB_ENV
+          echo "PRIME_REGISTRY_PASSWORD=${{ secrets.PRIME_REGISTRY_PASSWORD }}" >> $GITHUB_ENV
+          
       - name: Create manifest list and push
         id: push-manifest
-        uses: rancher/ecm-distro-tools/actions/publish-image@master
+        uses: rancher/ecm-distro-tools/actions/publish-image@publish
         env: 
           DOCKER_METADATA_OUTPUT_JSON: ${{ steps.meta.outputs.json }}
           REGISTRY_IMAGE: ${{ env.REGISTRY_IMAGE }}
@@ -162,11 +183,11 @@ jobs:
           image: hardened-calico
           tag: ${{ github.event.release.tag_name }}
 
-          public-repo: rancher
+          public-repo: paulinhu
           public-username: ${{ env.DOCKER_USERNAME }}
           public-password: ${{ env.DOCKER_PASSWORD }}
 
-          prime-repo: rancher
+          prime-repo: pjbgf-forks
           prime-registry: ${{ env.PRIME_REGISTRY }}
           prime-username: ${{ env.PRIME_REGISTRY_USERNAME }}
           prime-password: ${{ env.PRIME_REGISTRY_PASSWORD }}
