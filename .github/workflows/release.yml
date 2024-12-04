@@ -3,7 +3,6 @@ on:
     types: [published]
 
 env:
-  REGISTRY_IMAGE: rancher/hardened-calico
   GITHUB_ACTION_TAG: ${{ github.ref_name }}  
 
 jobs:
@@ -28,7 +27,7 @@ jobs:
       id: meta-amd64
       uses: docker/metadata-action@v5
       with:
-        images: ${{ env.REGISTRY_IMAGE }}
+        images: rancher/hardened-calico
 
     # - name: "Read secrets"
     #   uses: rancher-eio/read-vault-secrets@main
