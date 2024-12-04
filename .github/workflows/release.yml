@@ -46,14 +46,14 @@ jobs:
         echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> $GITHUB_ENV        
         echo "PRIME_REGISTRY_USERNAME=${{ secrets.PRIME_REGISTRY_USERNAME }}" >> $GITHUB_ENV
         echo "PRIME_REGISTRY_PASSWORD=${{ secrets.PRIME_REGISTRY_PASSWORD }}" >> $GITHUB_ENV
+        echo "PUBLIC_REGISTRY=docker.io" >> $GITHUB_ENV
+        echo "PRIME_REGISTRY=ghcr.io" >> $GITHUB_ENV
 
     - name: Build and push container image
       id: build-amd64
       uses: pjbgf-forks/ecm-distro-tools/actions/publish-image@publish
       env: 
         META_LABELS: ${{ steps.meta-amd64.outputs.labels }}
-        PRIME_REGISTRY: ${{ env.PRIME_REGISTRY }}
-        PUBLIC_REGISTRY: ${{ env.PUBLIC_REGISTRY }}
       with:
         image: hardened-calico
         tag: ${{ github.event.release.tag_name }}
