@@ -58,12 +58,12 @@ jobs:
         platforms: linux/amd64
 
         public-repo: paulinhu
-        public-registry: ${{ env.PUBLIC_REGISTRY }}
+        public-registry: docker.io # ${{ env.PUBLIC_REGISTRY }}
         public-username: ${{ env.DOCKER_USERNAME }}
         public-password: ${{ env.DOCKER_PASSWORD }}
 
         prime-repo: pjbgf-forks
-        prime-registry: ${{ env.PRIME_REGISTRY }}
+        prime-registry: ghcr.io # ${{ env.PRIME_REGISTRY }}
         prime-username: ${{ env.PRIME_REGISTRY_USERNAME }}
         prime-password: ${{ env.PRIME_REGISTRY_PASSWORD }}
 
