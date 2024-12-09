@@ -50,7 +50,7 @@ jobs:
 
     - name: Build and push container image
       id: build-amd64
-      uses: pjbgf-forks/ecm-distro-tools/actions/publish-image@publish
+      uses: pjbgf-forks/ecm-distro-tools/actions/publish-image@slsactl-install
       env: 
         META_LABELS: ${{ steps.meta-amd64.outputs.labels }}
       with:
